@@ -20,16 +20,16 @@ export default function TextForm(props) {
   return (
     <>
     <div className="container">
-    <h1>{props.heading} - {text}</h1>
+    <h1>{props.heading} </h1>
     <div className="mb-3">
-    <label htmlFor="myBox" className="form-label">Example textarea</label>
+    <label htmlFor="myBox" className="form-label">Example text area</label>
     <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
     </div>
     <button className='btn btn-primary'onClick={handleUpClick}>Convert to upper case</button>
     </div>
     <div className="container my-2">
       <h1> Your text Summary</h1>
-      <p1> 12312 words and 3214123 charaters </p1>
+      <p1> {text.split(" ").length} words and {text.length} charaters </p1>
 
     </div>
     </>
