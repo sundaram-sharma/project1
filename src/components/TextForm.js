@@ -3,24 +3,31 @@ import React, {useState} from 'react'
 export default function TextForm(props) {
 
   const handleUpClick = ()=>{
-    let newText = text.toUpperCase();
+    let newText = text.toUpperCase(); //to Upper the text
     setText(newText);
   }
 
   const handleLoClick = ()=>{
-    let newText = text.toLowerCase();
+    let newText = text.toLowerCase(); //to lower the text
     setText(newText);
   }
 
-  const handleClearClick = ()=>{
+  const handleClearClick = ()=>{ // to clear the
     let newText = "";
     setText(newText);
   }
 
+  const handleCapsClick = ()=>{ // convert first letter to capital
+    let newText = text.charAt(0).toUpperCase() + text.slice(1);
+    setText(newText);
+  }
+
   const handleOnChange = (event)=>{ //this is for typing on the form
-    console.log("On change");
+    console.log("Typing...");
     setText(event.target.value)
   }
+
+
 
   const [text,setText] = useState('');
   //text = "New text"; //Wrong way to change the state
@@ -37,6 +44,7 @@ export default function TextForm(props) {
     <button className='btn btn-primary mx-1'onClick={handleUpClick}>Convert to Upper case</button>
     <button className='btn btn-primary mx-1'onClick={handleLoClick}>Convert to Lower case</button>
     <button className='btn btn-primary mx-1'onClick={handleClearClick}>Clear Text</button>
+    <button className='btn btn-primary mx-1'onClick={handleCapsClick}>Capital first letter</button>
     </div>
     <div className="container my-3">
       <h2> Your text Summary</h2>
