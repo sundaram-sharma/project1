@@ -22,6 +22,18 @@ export default function TextForm(props) {
     setText(newText);
   }
 
+  const handleCopy = () =>{
+    var textTemp = document.getElementById("myBox"); //getting the value from the element
+    textTemp.select(); //select the whole text
+    navigator.clipboard.writeText(textTemp.value); //copy the value to clipboard
+
+  }
+
+  const handleExtraSpaces = () =>{
+    let newText = text.split(/[ ]+/);
+    setText(newText.join(" "))
+  }
+
   const handleOnChange = (event)=>{ //this is for typing on the form
     console.log("Typing...");
     setText(event.target.value)
@@ -34,24 +46,26 @@ export default function TextForm(props) {
   //setText("new text"); //Correct way to change the state
   return (
     <>
-    <div className="container">
-    <h1>{props.heading} </h1>
+    <div className="container" style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'black'}}>
+    <h1 >{props.heading} </h1>
     <div className="mb-3">
     <label htmlFor="myBox" className="form-label">Example text area</label>
-    <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+    <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'black'}} id="myBox" rows="8"></textarea>
     
     </div>
     <button className='btn btn-primary mx-1'onClick={handleUpClick}>Convert to Upper case</button>
     <button className='btn btn-primary mx-1'onClick={handleLoClick}>Convert to Lower case</button>
     <button className='btn btn-primary mx-1'onClick={handleClearClick}>Clear Text</button>
     <button className='btn btn-primary mx-1'onClick={handleCapsClick}>Capital first letter</button>
+    <button className='btn btn-primary mx-1'onClick={handleCopy}>Copy Text</button>
+    <button className='btn btn-primary mx-1'onClick={handleExtraSpaces}>Remove Extra Spaces</button>
     </div>
-    <div className="container my-3">
+    <div className="container my-3" style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'black'}}>
       <h2> Your text Summary</h2>
       <p> {text.split(" ").length} words and {text.length} charaters </p>
       <p> {0.008 * text.split(" ").length} Minutes Read </p> {/*multiplying the average read time with the number of words*/}
       <h2>Preview</h2>
-      <p>{text}</p> {/*get the preview of the typed text by user*/}
+      <p>{text.length>0?text:"Enter text to preview"}</p> {/*get the preview of the typed text by user*/}
     </div>
     </>
   )
