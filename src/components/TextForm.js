@@ -21,7 +21,7 @@ export default function TextForm(props) {
     setText(event.target.value)
   }
 
-  const [text,setText] = useState('Enter text here');
+  const [text,setText] = useState('');
   //text = "New text"; //Wrong way to change the state
   //setText("new text"); //Correct way to change the state
   return (
@@ -37,7 +37,7 @@ export default function TextForm(props) {
     <button className='btn btn-primary mx-1'onClick={handleLoClick}>Convert to Lower case</button>
     </div>
     <div className="container my-3">
-      <h1> Your text Summary</h1>
+      <h2> Your text Summary</h2>
       <p> {text.split(" ").length} words and {text.length} charaters </p>
       <p> {0.008 * text.split(" ").length} Minutes Read </p> {/*multiplying the average read time with the number of words*/}
       <h2>Preview</h2>
