@@ -30,6 +30,7 @@ export default function TextForm(props) {
     var textTemp = document.getElementById("myBox"); //getting the value from the element
     textTemp.select(); //select the whole text
     navigator.clipboard.writeText(textTemp.value); //copy the value to clipboard
+    document.getSelection().removeAllRanges(); //remove the selected area
     props.showAlert("Copied to clipboard!","success");
 
   }
@@ -56,23 +57,23 @@ export default function TextForm(props) {
     <div className="container" style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'black'}}>
     <h1 >{props.heading} </h1>
     <div className="mb-3">
-    <label htmlFor="myBox" className="form-label">Text area</label>
-    <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'black'}} id="myBox" rows="8"></textarea>
+    {/*<label htmlFor="myBox" className="form-label">Text area</label>*/}
+    <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'#13466e':'white', color: props.mode==='dark'?'white':'black'}} id="myBox" rows="8"></textarea>
     
     </div>
-    <button className='btn btn-primary mx-1'onClick={handleUpClick}>Convert to Uppercase</button>
-    <button className='btn btn-primary mx-1'onClick={handleLoClick}>Convert to Lowercase</button>
-    <button className='btn btn-primary mx-1'onClick={handleClearClick}>Clear Text</button>
-    <button className='btn btn-primary mx-1'onClick={handleCapsClick}>Capital first letter</button>
-    <button className='btn btn-primary mx-1'onClick={handleCopy}>Copy Text</button>
-    <button className='btn btn-primary mx-1'onClick={handleExtraSpaces}>Remove Extra Space</button>
+    <button disabled={text.length===0} className='btn btn-primary mx-1 my-1'onClick={handleUpClick}>Convert to Uppercase</button>
+    <button disabled={text.length===0} className='btn btn-primary mx-1 my-1'onClick={handleLoClick}>Convert to Lowercase</button>
+    <button disabled={text.length===0} className='btn btn-primary mx-1 my-1'onClick={handleClearClick}>Clear Text</button>
+    <button disabled={text.length===0} className='btn btn-primary mx-1 my-1'onClick={handleCapsClick}>Capital first letter</button>
+    <button disabled={text.length===0} className='btn btn-primary mx-1 my-1'onClick={handleCopy}>Copy Text</button>
+    <button disabled={text.length===0} className='btn btn-primary mx-1 my-1'onClick={handleExtraSpaces}>Remove Extra Space</button>
     </div>
     <div className="container my-3" style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'black'}}>
       <h2> Your text Summary</h2>
-      <p> {text.split(" ").length} words and {text.length} charaters </p>
-      <p> {0.008 * text.split(" ").length} Minutes Read </p> {/*multiplying the average read time with the number of words*/}
+      <p> {text.split(" ").filter((element)=>{return element.length!==0}).length } words and {text.length} charaters </p>
+      <p> {0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes Read </p> {/*multiplying the average read time with the number of words*/}
       <h2>Preview</h2>
-      <p>{text.length>0?text:"Enter text to preview"}</p> {/*get the preview of the typed text by user*/}
+      <p>{text.length>0?text:"Nothing to preview"}</p> {/*get the preview of the typed text by user*/}
     </div>
     </>
   )
